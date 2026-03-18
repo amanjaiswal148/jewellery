@@ -1,0 +1,784 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#B8965A;--gold-lt:#D4B483;--gold-dk:#8A6E3E;
+  --ink:#1A1A1A;--ink2:#555;--ink3:#909090;
+  --bg:#FAFAF8;--bg2:#F4F3F0;--bg3:#EDECE9;--bg4:#E6E4E0;
+  --bd:rgba(170,160,145,0.18);--bd2:rgba(170,160,145,0.38);
+  --red:#B83232;--green:#2A6E45;--blue:#1A5A8A;
+}
+body{font-family:'Jost',sans-serif;background:var(--bg);}
+
+/* ── TICKER ── */
+.ticker{background:#111;color:#BBB;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;padding:6px 0;overflow:hidden;white-space:nowrap;}
+.ticker-inner{display:inline-block;animation:tick 30s linear infinite;}
+@keyframes tick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ticker a{color:#BBB;text-decoration:none;margin:0 2.5rem;}
+.ticker .hi{color:var(--gold);}
+
+/* ── UTIL ── */
+.util{display:flex;justify-content:space-between;align-items:center;padding:.38rem 2rem;border-bottom:.5px solid var(--bd);font-size:10.5px;color:var(--ink2);}
+.util a{color:var(--ink2);text-decoration:none;transition:color .2s;}
+.util a:hover{color:var(--gold);}
+.util-l,.util-r{display:flex;gap:.9rem;align-items:center;}
+.dot{color:var(--bd2);}
+.tbadge{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--ink3);}
+.tbadge svg{width:11px;height:11px;stroke:var(--gold);fill:none;stroke-width:1.6;}
+.ldot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.chat-btn{display:flex;align-items:center;gap:.3rem;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);border:.5px solid var(--bd2);padding:3px 9px;transition:all .18s;}
+.chat-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── LOGO BAND ── */
+.logo-band{display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;border-bottom:.5px solid var(--bd);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:300;letter-spacing:.22em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px;}
+.logo-gem{width:20px;height:20px;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;}
+.logo-gem::before{content:'';position:absolute;width:14px;height:14px;background:var(--gold);transform:rotate(45deg);}
+.logo-gem::after{content:'';position:absolute;width:5px;height:5px;background:var(--bg);transform:rotate(45deg);}
+.logo-sub{font-size:7.5px;letter-spacing:.22em;color:var(--ink3);text-transform:uppercase;font-family:'Jost',sans-serif;margin-top:2px;}
+.act-row{display:flex;align-items:center;gap:3px;}
+.abt{width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);text-decoration:none;position:relative;transition:color .2s;}
+.abt:hover{color:var(--gold);}
+.abt svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.4;}
+.cbadge{position:absolute;top:3px;right:2px;width:14px;height:14px;background:var(--gold);border-radius:50%;font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center;}
+.ndot{position:absolute;top:5px;right:5px;width:6px;height:6px;background:var(--red);border-radius:50%;}
+
+/* ── NAV BAR ── */
+.navbar{display:flex;align-items:stretch;list-style:none;padding:0 2rem;border-bottom:.5px solid var(--bd);background:var(--bg);position:relative;}
+.ni{position:static;}
+.nl{display:flex;align-items:center;gap:4px;padding:.52rem .82rem;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;color:var(--ink);cursor:pointer;transition:color .2s;border-bottom:2px solid transparent;white-space:nowrap;user-select:none;}
+.nl:hover,.ni.open .nl{color:var(--gold);border-bottom-color:var(--gold);}
+.nb{font-size:7.5px;padding:1px 5px;border-radius:2px;letter-spacing:.08em;text-transform:uppercase;margin-left:2px;}
+.nb.new{background:#EAF4EE;color:var(--green);}
+.nb.hot{background:#FDECEA;color:var(--red);}
+.nb.ex{background:#F8F3EC;color:var(--gold-dk);}
+.chv{width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex-shrink:0;}
+.ni.open .chv{transform:rotate(225deg) translateY(-2px);}
+
+/* ── 3-LEVEL DROPDOWN SHELL ── */
+.dropdown{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border:.5px solid var(--bd);border-top:none;z-index:400;min-height:420px;}
+.ni.open .dropdown{display:flex;flex-direction:column;}
+
+/* LEVEL 1 — LEFT RAIL: categories */
+.drop-body{display:flex;flex:1;min-height:420px;}
+.cat-rail{width:200px;flex-shrink:0;border-right:.5px solid var(--bd);background:var(--bg2);padding:.6rem 0;}
+.cat-item{display:flex;align-items:center;justify-content:space-between;padding:.55rem 1.1rem;font-size:12px;font-weight:400;letter-spacing:.04em;color:var(--ink2);cursor:pointer;transition:background .15s,color .15s;border-left:2px solid transparent;}
+.cat-item:hover,.cat-item.active{background:var(--bg);color:var(--ink);border-left-color:var(--gold);}
+.cat-item .cat-icon{font-size:14px;margin-right:.5rem;flex-shrink:0;color:var(--gold);}
+.cat-item .arr{width:6px;height:6px;border-right:1px solid var(--ink3);border-bottom:1px solid var(--ink3);transform:rotate(-45deg);flex-shrink:0;transition:border-color .15s;}
+.cat-item.active .arr,.cat-item:hover .arr{border-color:var(--gold);}
+
+/* LEVEL 2 — MIDDLE: subcategories */
+.sub-panel{flex:1;border-right:.5px solid var(--bd);padding:1rem 1.2rem;display:none;flex-direction:column;gap:.2rem;background:var(--bg);}
+.sub-panel.active{display:flex;}
+.sub-head{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;font-weight:400;}
+.sub-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;}
+.sub-item{display:flex;align-items:center;justify-content:space-between;padding:.42rem .5rem;font-size:12.5px;color:var(--ink);cursor:pointer;transition:background .15s,color .15s;border-radius:0;}
+.sub-item:hover,.sub-item.active{background:var(--bg2);color:var(--gold);}
+.sub-item .sub-arr{width:5px;height:5px;border-right:1px solid var(--ink3);border-bottom:1px solid var(--ink3);transform:rotate(-45deg);flex-shrink:0;transition:border-color .15s;margin-left:4px;}
+.sub-item.active .sub-arr,.sub-item:hover .sub-arr{border-color:var(--gold);}
+.sub-divider{height:.5px;background:var(--bd);margin:.6rem 0;}
+.view-all-sub{font-size:10.5px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;padding:.3rem .5rem;cursor:pointer;display:inline-block;border-bottom:.5px solid var(--gold);margin-top:.2rem;}
+
+/* LEVEL 3 — RIGHT: child categories */
+.child-panel{flex:1.2;padding:1rem 1.2rem;display:none;flex-direction:column;background:var(--bg);}
+.child-panel.active{display:flex;}
+.child-head{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;font-weight:400;}
+.child-subhead{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:.6rem 0 .3rem;font-weight:400;}
+.child-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;}
+.child-item{padding:.38rem .5rem;font-size:12px;color:var(--ink2);cursor:pointer;transition:background .15s,color .15s;}
+.child-item:hover{background:var(--bg2);color:var(--gold);}
+.child-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:.2rem;}
+.cpill{font-size:11px;color:var(--ink2);border:.5px solid var(--bd2);padding:3px 8px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.cpill:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
+
+/* PROMO COLUMN */
+.promo-col{width:220px;flex-shrink:0;border-left:.5px solid var(--bd);display:flex;flex-direction:column;background:var(--bg2);}
+.promo-img{flex:1;background:var(--bg3);display:flex;align-items:center;justify-content:center;min-height:160px;}
+.promo-gem{width:70px;height:70px;background:var(--gold);transform:rotate(45deg);opacity:.14;}
+.promo-body{padding:1rem;border-top:.5px solid var(--bd);}
+.promo-lbl{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.25rem;}
+.promo-ttl{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:var(--ink);line-height:1.3;margin-bottom:.4rem;}
+.promo-cta{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:.5px solid var(--gold);padding-bottom:1px;}
+
+/* DROPDOWN FOOTER */
+.drop-footer{border-top:.5px solid var(--bd);padding:.5rem 1.2rem;display:flex;align-items:center;gap:1rem;background:var(--bg2);flex-wrap:wrap;}
+.dfl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);text-decoration:none;transition:color .18s;cursor:pointer;}
+.dfl:hover{color:var(--gold);}
+.dfr{margin-left:auto;font-size:10px;color:var(--ink3);}
+.dfsep{color:var(--bd2);}
+
+.grule{height:1px;background:var(--gold);opacity:.18;}
+</style>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner">
+  <a href="#">✦ Free shipping above ₹5,000 · Use <span class="hi">LUMIERE10</span> for 10% off · BIS 925 Certified · New: Celestial Collection · 30-Day Returns · Lifetime Polishing</a>
+  <a href="#">✦ Free shipping above ₹5,000 · Use <span class="hi">LUMIERE10</span> for 10% off · BIS 925 Certified · New: Celestial Collection · 30-Day Returns · Lifetime Polishing</a>
+</div></div>
+
+<!-- UTILITY BAR -->
+<div class="util">
+  <div class="util-l">
+    <div class="tbadge"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> BIS Certified</div>
+    <div class="tbadge"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Secure Pay</div>
+    <div class="tbadge"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> 4.9★ Rated</div>
+    <span class="dot">·</span>
+    <a href="#">Our Story</a><span class="dot">·</span><a href="#">Blog</a><span class="dot">·</span><a href="#">Sustainability</a><span class="dot">·</span><a href="#">Careers</a>
+  </div>
+  <div class="util-r">
+    <a href="#">Track Order</a><span class="dot">·</span><a href="#">Store Locator</a><span class="dot">·</span><a href="#">Book Appointment</a><span class="dot">·</span><a href="#">EN / हि</a><span class="dot">·</span><a href="#">₹ INR</a>
+    <span class="dot">·</span>
+    <a class="chat-btn" href="#"><span class="ldot"></span> Live Chat</a>
+  </div>
+</div>
+
+<!-- LOGO BAND -->
+<div class="logo-band">
+  <a class="logo" href="#"><span class="logo-gem"></span><div>LUMIÈRE<div class="logo-sub">Fine Silver &amp; Jewellery · Est. 1982</div></div></a>
+  <div class="act-row">
+    <a class="abt" href="#" title="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></a>
+    <a class="abt" href="#" title="Wishlist" style="position:relative;"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="cbadge" style="background:#C04060;">5</span></a>
+    <a class="abt" href="#" title="Notifications" style="position:relative;"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="ndot"></span></a>
+    <a class="abt" href="#" title="Account"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+    <a class="abt" href="#" title="Cart" style="position:relative;"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cbadge">3</span></a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MAIN NAVIGATION WITH 3-LEVEL DROPDOWN
+══════════════════════════════════════ -->
+<div style="position:relative;" id="navRoot">
+<ul class="navbar" id="navBar">
+
+  <!-- COLLECTIONS — FULL 3-LEVEL -->
+  <li class="ni" data-menu="collections">
+    <div class="nl">Collections <span class="chv"></span></div>
+    <div class="dropdown" id="dd-collections">
+      <div class="drop-body">
+
+        <!-- L1: CATEGORY RAIL -->
+        <div class="cat-rail">
+          <div class="cat-item active" data-cat="rings" data-menu="collections"><span class="cat-icon">◈</span> Rings <span class="arr"></span></div>
+          <div class="cat-item" data-cat="necklaces" data-menu="collections"><span class="cat-icon">◇</span> Necklaces &amp; Pendants <span class="arr"></span></div>
+          <div class="cat-item" data-cat="earrings" data-menu="collections"><span class="cat-icon">◉</span> Earrings <span class="arr"></span></div>
+          <div class="cat-item" data-cat="bangles" data-menu="collections"><span class="cat-icon">◻</span> Bangles &amp; Bracelets <span class="arr"></span></div>
+          <div class="cat-item" data-cat="anklets" data-menu="collections"><span class="cat-icon">◈</span> Anklets &amp; Toe Rings <span class="arr"></span></div>
+          <div class="cat-item" data-cat="maang" data-menu="collections"><span class="cat-icon">◇</span> Head &amp; Hair Jewellery <span class="arr"></span></div>
+          <div class="cat-item" data-cat="nose" data-menu="collections"><span class="cat-icon">◉</span> Nose Jewellery <span class="arr"></span></div>
+          <div class="cat-item" data-cat="sets" data-menu="collections"><span class="cat-icon">◻</span> Sets &amp; Suites <span class="arr"></span></div>
+          <div class="cat-item" data-cat="chains" data-menu="collections"><span class="cat-icon">◈</span> Chains &amp; Lockets <span class="arr"></span></div>
+          <div class="cat-item" data-cat="body" data-menu="collections"><span class="cat-icon">◇</span> Body Jewellery <span class="arr"></span></div>
+        </div>
+
+        <!-- L2 + L3 PANELS (one block per category) -->
+
+        <!-- RINGS -->
+        <div class="sub-panel active" data-subpanel="collections-rings">
+          <div class="sub-head">Rings — Subcategories</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-rings-silver">Silver Rings <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-rings-gemstone">Gemstone Rings <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-rings-engagement">Engagement Rings <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-rings-cocktail">Cocktail Rings <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-rings-band">Band Rings <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-rings-stackable">Stackable Rings <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-rings-midi">Midi Rings <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-rings-statement">Statement Rings <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All Rings →</span>
+        </div>
+
+        <!-- NECKLACES -->
+        <div class="sub-panel" data-subpanel="collections-necklaces">
+          <div class="sub-head">Necklaces — Subcategories</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-necklaces-chains">Chain Necklaces <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-necklaces-pendant">Pendant Necklaces <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-necklaces-choker">Chokers <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-necklaces-layered">Layered Necklaces <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-necklaces-mangalsutra">Mangalsutra <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-necklaces-temple">Temple Necklace <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All Necklaces →</span>
+        </div>
+
+        <!-- EARRINGS -->
+        <div class="sub-panel" data-subpanel="collections-earrings">
+          <div class="sub-head">Earrings — Subcategories</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-earrings-studs">Studs <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-earrings-jhumkas">Jhumkas <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-earrings-hoops">Hoops <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-earrings-drops">Drop &amp; Dangles <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-earrings-cuffs">Ear Cuffs <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-earrings-chandbali">Chandbali <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All Earrings →</span>
+        </div>
+
+        <!-- BANGLES -->
+        <div class="sub-panel" data-subpanel="collections-bangles">
+          <div class="sub-head">Bangles &amp; Bracelets</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-bangles-kadas">Kadas <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-bangles-cuff">Cuff Bracelets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-bangles-chain">Chain Bracelets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-bangles-bangle">Traditional Bangles <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-bangles-charm">Charm Bracelets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-bangles-tennis">Tennis Bracelets <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All →</span>
+        </div>
+
+        <!-- ANKLETS -->
+        <div class="sub-panel" data-subpanel="collections-anklets">
+          <div class="sub-head">Anklets &amp; Toe Rings</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-anklets-simple">Simple Anklets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-anklets-charm">Charm Anklets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-anklets-bridal">Bridal Anklets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-anklets-toe">Toe Rings <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All →</span>
+        </div>
+
+        <!-- MAANG -->
+        <div class="sub-panel" data-subpanel="collections-maang">
+          <div class="sub-head">Head &amp; Hair Jewellery</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-maang-tikka">Maang Tikka <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-maang-matha">Matha Patti <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-maang-pins">Hair Pins &amp; Clips <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-maang-passa">Passa <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All →</span>
+        </div>
+
+        <!-- NOSE -->
+        <div class="sub-panel" data-subpanel="collections-nose">
+          <div class="sub-head">Nose Jewellery</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-nose-pins">Nose Pins <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-nose-rings">Nose Rings (Nath) <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-nose-studs">Nose Studs <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-nose-septum">Septum Rings <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All →</span>
+        </div>
+
+        <!-- SETS -->
+        <div class="sub-panel" data-subpanel="collections-sets">
+          <div class="sub-head">Sets &amp; Suites</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-sets-bridal">Bridal Sets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-sets-necklace">Necklace Sets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-sets-earring">Earring Sets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-sets-combo">Combo Sets <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All →</span>
+        </div>
+
+        <!-- CHAINS -->
+        <div class="sub-panel" data-subpanel="collections-chains">
+          <div class="sub-head">Chains &amp; Lockets</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-chains-box">Box Chains <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-chains-rope">Rope Chains <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-chains-locket">Photo Lockets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-chains-charm">Charm Lockets <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All →</span>
+        </div>
+
+        <!-- BODY -->
+        <div class="sub-panel" data-subpanel="collections-body">
+          <div class="sub-head">Body Jewellery</div>
+          <div class="sub-grid">
+            <div class="sub-item active" data-child="collections-body-belly">Belly Rings <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-body-waist">Waist Chains <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-body-arm">Armlets <span class="sub-arr"></span></div>
+            <div class="sub-item" data-child="collections-body-finger">Hand Harness <span class="sub-arr"></span></div>
+          </div>
+          <div class="sub-divider"></div>
+          <span class="view-all-sub">View All →</span>
+        </div>
+
+        <!-- ═══ CHILD PANELS (L3) ═══ -->
+
+        <!-- RINGS > Silver Rings -->
+        <div class="child-panel active" data-childpanel="collections-rings-silver">
+          <div class="child-head">Silver Rings — Child Categories</div>
+          <div class="child-subhead">By Style</div>
+          <div class="child-grid">
+            <div class="child-item">Oxidised Silver</div>
+            <div class="child-item">Polished Silver</div>
+            <div class="child-item">Matte Finish</div>
+            <div class="child-item">Gold-Dipped</div>
+            <div class="child-item">Enamel Silver</div>
+            <div class="child-item">Filigree Silver</div>
+          </div>
+          <div class="child-subhead">By Occasion</div>
+          <div class="child-pills">
+            <span class="cpill">Everyday</span><span class="cpill">Bridal</span><span class="cpill">Party</span><span class="cpill">Office</span><span class="cpill">Festive</span>
+          </div>
+          <div class="child-subhead">By Price</div>
+          <div class="child-pills">
+            <span class="cpill">Under ₹999</span><span class="cpill">₹1k–₹2.5k</span><span class="cpill">₹2.5k–₹5k</span><span class="cpill">₹5k+</span>
+          </div>
+          <div class="child-subhead">By Size</div>
+          <div class="child-pills">
+            <span class="cpill">Size 5</span><span class="cpill">Size 6</span><span class="cpill">Size 7</span><span class="cpill">Size 8</span><span class="cpill">Size 9</span><span class="cpill">Custom</span>
+          </div>
+        </div>
+
+        <!-- RINGS > Gemstone Rings -->
+        <div class="child-panel" data-childpanel="collections-rings-gemstone">
+          <div class="child-head">Gemstone Rings</div>
+          <div class="child-subhead">By Stone</div>
+          <div class="child-grid">
+            <div class="child-item">Moonstone</div><div class="child-item">Amethyst</div><div class="child-item">Turquoise</div>
+            <div class="child-item">Garnet</div><div class="child-item">Rose Quartz</div><div class="child-item">Onyx</div>
+            <div class="child-item">Labradorite</div><div class="child-item">Citrine</div><div class="child-item">Lapis</div>
+          </div>
+          <div class="child-subhead">By Setting</div>
+          <div class="child-pills"><span class="cpill">Bezel</span><span class="cpill">Prong</span><span class="cpill">Pavé</span><span class="cpill">Cluster</span><span class="cpill">Cabochon</span></div>
+        </div>
+
+        <!-- RINGS > Engagement -->
+        <div class="child-panel" data-childpanel="collections-rings-engagement">
+          <div class="child-head">Engagement Rings</div>
+          <div class="child-subhead">By Metal</div>
+          <div class="child-pills"><span class="cpill">Sterling Silver</span><span class="cpill">Silver + Gold</span><span class="cpill">Oxidised</span></div>
+          <div class="child-subhead">By Cut</div>
+          <div class="child-pills"><span class="cpill">Round</span><span class="cpill">Oval</span><span class="cpill">Princess</span><span class="cpill">Pear</span><span class="cpill">Marquise</span><span class="cpill">Cushion</span></div>
+          <div class="child-subhead">By Budget</div>
+          <div class="child-pills"><span class="cpill">Under ₹3k</span><span class="cpill">₹3k–₹8k</span><span class="cpill">₹8k–₹20k</span><span class="cpill">₹20k+</span></div>
+        </div>
+
+        <!-- RINGS > Cocktail -->
+        <div class="child-panel" data-childpanel="collections-rings-cocktail">
+          <div class="child-head">Cocktail Rings</div>
+          <div class="child-subhead">By Look</div>
+          <div class="child-pills"><span class="cpill">Bold &amp; Chunky</span><span class="cpill">Floral</span><span class="cpill">Geometric</span><span class="cpill">Art Deco</span><span class="cpill">Celestial</span></div>
+          <div class="child-subhead">By Stone</div>
+          <div class="child-grid"><div class="child-item">Amethyst</div><div class="child-item">Turquoise</div><div class="child-item">Moonstone</div><div class="child-item">Garnet</div><div class="child-item">Onyx</div><div class="child-item">Multi-stone</div></div>
+        </div>
+
+        <!-- RINGS > Band -->
+        <div class="child-panel" data-childpanel="collections-rings-band">
+          <div class="child-head">Band Rings</div>
+          <div class="child-subhead">By Style</div>
+          <div class="child-pills"><span class="cpill">Plain Band</span><span class="cpill">Textured</span><span class="cpill">Engraved</span><span class="cpill">Eternity Band</span><span class="cpill">Twisted</span></div>
+          <div class="child-subhead">Best For</div>
+          <div class="child-pills"><span class="cpill">Wedding</span><span class="cpill">Anniversary</span><span class="cpill">Everyday Stack</span></div>
+        </div>
+
+        <!-- RINGS > Stackable -->
+        <div class="child-panel" data-childpanel="collections-rings-stackable">
+          <div class="child-head">Stackable Rings</div>
+          <div class="child-subhead">Curated Stacks</div>
+          <div class="child-pills"><span class="cpill">Minimal 3-Stack</span><span class="cpill">Celestial Stack</span><span class="cpill">Gemstone Stack</span><span class="cpill">Boho Stack</span><span class="cpill">Bridal Stack</span></div>
+          <div class="child-subhead">Shop Singles</div>
+          <div class="child-grid"><div class="child-item">Thin Band</div><div class="child-item">Beaded</div><div class="child-item">Twisted</div><div class="child-item">Dotted</div><div class="child-item">Wave</div><div class="child-item">Leaf</div></div>
+        </div>
+
+        <!-- RINGS > Midi -->
+        <div class="child-panel" data-childpanel="collections-rings-midi">
+          <div class="child-head">Midi Rings</div>
+          <div class="child-subhead">By Finish</div>
+          <div class="child-pills"><span class="cpill">Polished</span><span class="cpill">Oxidised</span><span class="cpill">Matte</span><span class="cpill">Hammered</span></div>
+          <div class="child-subhead">Sets</div>
+          <div class="child-pills"><span class="cpill">5-Piece Set</span><span class="cpill">3-Piece Set</span><span class="cpill">Single</span></div>
+        </div>
+
+        <!-- RINGS > Statement -->
+        <div class="child-panel" data-childpanel="collections-rings-statement">
+          <div class="child-head">Statement Rings</div>
+          <div class="child-subhead">By Theme</div>
+          <div class="child-pills"><span class="cpill">Celestial</span><span class="cpill">Botanical</span><span class="cpill">Tribal</span><span class="cpill">Geometric</span><span class="cpill">Animal</span><span class="cpill">Abstract</span></div>
+        </div>
+
+        <!-- NECKLACES > Chains -->
+        <div class="child-panel" data-childpanel="collections-necklaces-chains">
+          <div class="child-head">Chain Necklaces</div>
+          <div class="child-subhead">By Chain Type</div>
+          <div class="child-grid"><div class="child-item">Box Chain</div><div class="child-item">Rope Chain</div><div class="child-item">Figaro</div><div class="child-item">Snake Chain</div><div class="child-item">Curb Chain</div><div class="child-item">Herringbone</div></div>
+          <div class="child-subhead">By Length</div>
+          <div class="child-pills"><span class="cpill">14"</span><span class="cpill">16"</span><span class="cpill">18"</span><span class="cpill">20"</span><span class="cpill">24"</span><span class="cpill">Custom</span></div>
+        </div>
+
+        <!-- NECKLACES > Pendant -->
+        <div class="child-panel" data-childpanel="collections-necklaces-pendant">
+          <div class="child-head">Pendant Necklaces</div>
+          <div class="child-subhead">By Theme</div>
+          <div class="child-grid"><div class="child-item">Celestial</div><div class="child-item">Botanical</div><div class="child-item">Spiritual</div><div class="child-item">Initial</div><div class="child-item">Evil Eye</div><div class="child-item">Geometric</div></div>
+          <div class="child-subhead">By Stone</div>
+          <div class="child-pills"><span class="cpill">Moonstone</span><span class="cpill">Amethyst</span><span class="cpill">Turquoise</span><span class="cpill">Pearl</span></div>
+        </div>
+
+        <!-- NECKLACES > Choker -->
+        <div class="child-panel" data-childpanel="collections-necklaces-choker">
+          <div class="child-head">Chokers</div>
+          <div class="child-subhead">By Style</div>
+          <div class="child-pills"><span class="cpill">Minimal Silver</span><span class="cpill">Gemstone Choker</span><span class="cpill">Layered Choker</span><span class="cpill">Temple Choker</span><span class="cpill">Oxidised</span></div>
+        </div>
+
+        <!-- NECKLACES > Layered -->
+        <div class="child-panel" data-childpanel="collections-necklaces-layered">
+          <div class="child-head">Layered Necklaces</div>
+          <div class="child-subhead">Layer Count</div>
+          <div class="child-pills"><span class="cpill">2-Layer</span><span class="cpill">3-Layer</span><span class="cpill">4-Layer</span></div>
+          <div class="child-subhead">By Style</div>
+          <div class="child-pills"><span class="cpill">Celestial</span><span class="cpill">Boho</span><span class="cpill">Minimal</span><span class="cpill">Statement</span></div>
+        </div>
+
+        <!-- NECKLACES > Mangalsutra -->
+        <div class="child-panel" data-childpanel="collections-necklaces-mangalsutra">
+          <div class="child-head">Mangalsutra</div>
+          <div class="child-subhead">By Region Style</div>
+          <div class="child-pills"><span class="cpill">Traditional</span><span class="cpill">Maharashtrian</span><span class="cpill">South Indian</span><span class="cpill">Bengali</span><span class="cpill">Punjabi</span></div>
+          <div class="child-subhead">By Length</div>
+          <div class="child-pills"><span class="cpill">Short 14"</span><span class="cpill">Medium 18"</span><span class="cpill">Long 24"</span><span class="cpill">Extra Long</span></div>
+        </div>
+
+        <!-- NECKLACES > Temple -->
+        <div class="child-panel" data-childpanel="collections-necklaces-temple">
+          <div class="child-head">Temple Necklaces</div>
+          <div class="child-subhead">By Deity Motif</div>
+          <div class="child-pills"><span class="cpill">Lakshmi</span><span class="cpill">Ganesha</span><span class="cpill">Peacock</span><span class="cpill">Lotus</span><span class="cpill">Hamsa</span></div>
+        </div>
+
+        <!-- EARRINGS > Studs -->
+        <div class="child-panel active" data-childpanel="collections-earrings-studs">
+          <div class="child-head">Studs</div>
+          <div class="child-subhead">By Shape</div>
+          <div class="child-grid"><div class="child-item">Round</div><div class="child-item">Star</div><div class="child-item">Moon</div><div class="child-item">Heart</div><div class="child-item">Flower</div><div class="child-item">Geometric</div></div>
+          <div class="child-subhead">By Stone</div>
+          <div class="child-pills"><span class="cpill">CZ</span><span class="cpill">Moonstone</span><span class="cpill">Turquoise</span><span class="cpill">Amethyst</span><span class="cpill">Plain Silver</span></div>
+        </div>
+
+        <!-- EARRINGS > Jhumkas -->
+        <div class="child-panel" data-childpanel="collections-earrings-jhumkas">
+          <div class="child-head">Jhumkas</div>
+          <div class="child-subhead">By Style</div>
+          <div class="child-pills"><span class="cpill">Classic Dome</span><span class="cpill">Oxidised</span><span class="cpill">Meenakari</span><span class="cpill">Kundan</span><span class="cpill">Filigree</span><span class="cpill">Tribal</span></div>
+          <div class="child-subhead">By Size</div>
+          <div class="child-pills"><span class="cpill">Mini</span><span class="cpill">Medium</span><span class="cpill">Oversized</span></div>
+        </div>
+
+        <!-- EARRINGS > Hoops -->
+        <div class="child-panel" data-childpanel="collections-earrings-hoops">
+          <div class="child-head">Hoops</div>
+          <div class="child-subhead">By Size</div>
+          <div class="child-pills"><span class="cpill">Mini 10mm</span><span class="cpill">Small 15mm</span><span class="cpill">Medium 25mm</span><span class="cpill">Large 40mm</span><span class="cpill">XL 50mm+</span></div>
+          <div class="child-subhead">By Style</div>
+          <div class="child-pills"><span class="cpill">Plain</span><span class="cpill">Textured</span><span class="cpill">Twisted</span><span class="cpill">Beaded</span></div>
+        </div>
+
+        <!-- EARRINGS > Drops -->
+        <div class="child-panel" data-childpanel="collections-earrings-drops">
+          <div class="child-head">Drop &amp; Dangles</div>
+          <div class="child-subhead">By Length</div>
+          <div class="child-pills"><span class="cpill">Short Drop</span><span class="cpill">Mid Drop</span><span class="cpill">Long Tassel</span></div>
+          <div class="child-subhead">By Theme</div>
+          <div class="child-pills"><span class="cpill">Celestial</span><span class="cpill">Botanical</span><span class="cpill">Feather</span><span class="cpill">Chain</span><span class="cpill">Cluster</span></div>
+        </div>
+
+        <!-- EARRINGS > Cuffs -->
+        <div class="child-panel" data-childpanel="collections-earrings-cuffs">
+          <div class="child-head">Ear Cuffs</div>
+          <div class="child-subhead">By Style</div>
+          <div class="child-pills"><span class="cpill">Single Cuff</span><span class="cpill">Crawler</span><span class="cpill">Wrap-Around</span><span class="cpill">Clip-On Cuff</span></div>
+        </div>
+
+        <!-- EARRINGS > Chandbali -->
+        <div class="child-panel" data-childpanel="collections-earrings-chandbali">
+          <div class="child-head">Chandbali</div>
+          <div class="child-subhead">By Finish</div>
+          <div class="child-pills"><span class="cpill">Gold-Dipped</span><span class="cpill">Oxidised</span><span class="cpill">Meenakari</span><span class="cpill">Kundan</span></div>
+        </div>
+
+        <!-- BANGLES children (defaults) -->
+        <div class="child-panel active" data-childpanel="collections-bangles-kadas">
+          <div class="child-head">Kadas</div>
+          <div class="child-subhead">By Style</div>
+          <div class="child-pills"><span class="cpill">Plain Kada</span><span class="cpill">Engraved</span><span class="cpill">Stone-Set</span><span class="cpill">Filigree</span><span class="cpill">Oxidised</span></div>
+          <div class="child-subhead">By Gender</div>
+          <div class="child-pills"><span class="cpill">Women's</span><span class="cpill">Men's</span><span class="cpill">Unisex</span></div>
+        </div>
+        <div class="child-panel" data-childpanel="collections-bangles-cuff"><div class="child-head">Cuff Bracelets</div><div class="child-pills"><span class="cpill">Open Cuff</span><span class="cpill">Adjustable</span><span class="cpill">Hammered</span><span class="cpill">Gemstone</span></div></div>
+        <div class="child-panel" data-childpanel="collections-bangles-chain"><div class="child-head">Chain Bracelets</div><div class="child-pills"><span class="cpill">Box Chain</span><span class="cpill">Link Chain</span><span class="cpill">Paper Clip</span><span class="cpill">Tennis</span></div></div>
+        <div class="child-panel" data-childpanel="collections-bangles-bangle"><div class="child-head">Traditional Bangles</div><div class="child-pills"><span class="cpill">Set of 2</span><span class="cpill">Set of 4</span><span class="cpill">Set of 6</span><span class="cpill">Set of 12</span></div></div>
+        <div class="child-panel" data-childpanel="collections-bangles-charm"><div class="child-head">Charm Bracelets</div><div class="child-pills"><span class="cpill">Celestial</span><span class="cpill">Evil Eye</span><span class="cpill">Initial</span><span class="cpill">Heart</span><span class="cpill">Animal</span></div></div>
+        <div class="child-panel" data-childpanel="collections-bangles-tennis"><div class="child-head">Tennis Bracelets</div><div class="child-pills"><span class="cpill">CZ</span><span class="cpill">Moonstone</span><span class="cpill">Amethyst</span><span class="cpill">Multi-stone</span></div></div>
+
+        <!-- ANKLETS children -->
+        <div class="child-panel active" data-childpanel="collections-anklets-simple"><div class="child-head">Simple Anklets</div><div class="child-pills"><span class="cpill">Single Chain</span><span class="cpill">Double Chain</span><span class="cpill">Beaded</span><span class="cpill">Adjustable</span></div></div>
+        <div class="child-panel" data-childpanel="collections-anklets-charm"><div class="child-head">Charm Anklets</div><div class="child-pills"><span class="cpill">Celestial</span><span class="cpill">Evil Eye</span><span class="cpill">Flower</span><span class="cpill">Moon &amp; Star</span></div></div>
+        <div class="child-panel" data-childpanel="collections-anklets-bridal"><div class="child-head">Bridal Anklets</div><div class="child-pills"><span class="cpill">Payal Sets</span><span class="cpill">Ghungroo</span><span class="cpill">Kundan Payal</span></div></div>
+        <div class="child-panel" data-childpanel="collections-anklets-toe"><div class="child-head">Toe Rings</div><div class="child-pills"><span class="cpill">Single Band</span><span class="cpill">Dual Band</span><span class="cpill">Adjustable</span><span class="cpill">Sets</span></div></div>
+
+        <!-- MAANG children -->
+        <div class="child-panel active" data-childpanel="collections-maang-tikka"><div class="child-head">Maang Tikka</div><div class="child-pills"><span class="cpill">Kundan</span><span class="cpill">Polki</span><span class="cpill">Oxidised</span><span class="cpill">Minimal</span><span class="cpill">Floral</span></div></div>
+        <div class="child-panel" data-childpanel="collections-maang-matha"><div class="child-head">Matha Patti</div><div class="child-pills"><span class="cpill">Full Forehead</span><span class="cpill">Side Chain</span><span class="cpill">Bridal</span></div></div>
+        <div class="child-panel" data-childpanel="collections-maang-pins"><div class="child-head">Hair Pins &amp; Clips</div><div class="child-pills"><span class="cpill">Saree Pins</span><span class="cpill">Bobby Pins</span><span class="cpill">Barrettes</span></div></div>
+        <div class="child-panel" data-childpanel="collections-maang-passa"><div class="child-head">Passa</div><div class="child-pills"><span class="cpill">Traditional</span><span class="cpill">Floral</span><span class="cpill">Kundan</span></div></div>
+
+        <!-- NOSE children -->
+        <div class="child-panel active" data-childpanel="collections-nose-pins"><div class="child-head">Nose Pins</div><div class="child-pills"><span class="cpill">Plain Screw</span><span class="cpill">Stone-Set</span><span class="cpill">L-Shape</span><span class="cpill">Bone Pin</span></div></div>
+        <div class="child-panel" data-childpanel="collections-nose-rings"><div class="child-head">Nose Rings (Nath)</div><div class="child-pills"><span class="cpill">Bridal Nath</span><span class="cpill">Small Nath</span><span class="cpill">Floral</span><span class="cpill">Kundan</span></div></div>
+        <div class="child-panel" data-childpanel="collections-nose-studs"><div class="child-head">Nose Studs</div><div class="child-pills"><span class="cpill">CZ Stud</span><span class="cpill">Diamond-Look</span><span class="cpill">Flat Back</span></div></div>
+        <div class="child-panel" data-childpanel="collections-nose-septum"><div class="child-head">Septum Rings</div><div class="child-pills"><span class="cpill">Minimal Ring</span><span class="cpill">Clicker</span><span class="cpill">Horseshoe</span></div></div>
+
+        <!-- SETS children -->
+        <div class="child-panel active" data-childpanel="collections-sets-bridal"><div class="child-head">Bridal Sets</div><div class="child-pills"><span class="cpill">Full Parure</span><span class="cpill">Necklace + Earring</span><span class="cpill">5-Piece Set</span><span class="cpill">7-Piece Set</span></div></div>
+        <div class="child-panel" data-childpanel="collections-sets-necklace"><div class="child-head">Necklace Sets</div><div class="child-pills"><span class="cpill">Necklace + Earring</span><span class="cpill">+ Bracelet</span><span class="cpill">+ Maang Tikka</span></div></div>
+        <div class="child-panel" data-childpanel="collections-sets-earring"><div class="child-head">Earring Sets</div><div class="child-pills"><span class="cpill">Pair + Stud</span><span class="cpill">3-Pair Pack</span><span class="cpill">Hoop Set</span></div></div>
+        <div class="child-panel" data-childpanel="collections-sets-combo"><div class="child-head">Combo Sets</div><div class="child-pills"><span class="cpill">Gift Sets</span><span class="cpill">Office Set</span><span class="cpill">Festive Set</span><span class="cpill">Travel Set</span></div></div>
+
+        <!-- CHAINS children -->
+        <div class="child-panel active" data-childpanel="collections-chains-box"><div class="child-head">Box Chains</div><div class="child-pills"><span class="cpill">1mm</span><span class="cpill">1.5mm</span><span class="cpill">2mm</span><span class="cpill">3mm Bold</span></div></div>
+        <div class="child-panel" data-childpanel="collections-chains-rope"><div class="child-head">Rope Chains</div><div class="child-pills"><span class="cpill">Thin</span><span class="cpill">Medium</span><span class="cpill">Thick Statement</span></div></div>
+        <div class="child-panel" data-childpanel="collections-chains-locket"><div class="child-head">Photo Lockets</div><div class="child-pills"><span class="cpill">Round Locket</span><span class="cpill">Heart Locket</span><span class="cpill">Oval Locket</span></div></div>
+        <div class="child-panel" data-childpanel="collections-chains-charm"><div class="child-head">Charm Lockets</div><div class="child-pills"><span class="cpill">Perfume Locket</span><span class="cpill">Floating Charm</span><span class="cpill">Poison Locket</span></div></div>
+
+        <!-- BODY children -->
+        <div class="child-panel active" data-childpanel="collections-body-belly"><div class="child-head">Belly Rings</div><div class="child-pills"><span class="cpill">Dangling</span><span class="cpill">Curved Bar</span><span class="cpill">Gemstone</span></div></div>
+        <div class="child-panel" data-childpanel="collections-body-waist"><div class="child-head">Waist Chains</div><div class="child-pills"><span class="cpill">Slim Chain</span><span class="cpill">Multi-Strand</span><span class="cpill">Charm Waist</span></div></div>
+        <div class="child-panel" data-childpanel="collections-body-arm"><div class="child-head">Armlets</div><div class="child-pills"><span class="cpill">Upper Arm Cuff</span><span class="cpill">Adjustable</span><span class="cpill">Coil Style</span></div></div>
+        <div class="child-panel" data-childpanel="collections-body-finger"><div class="child-head">Hand Harness</div><div class="child-pills"><span class="cpill">Ring + Bracelet</span><span class="cpill">Multi-Finger</span><span class="cpill">Slave Bracelet</span></div></div>
+
+        <!-- PROMO COLUMN -->
+        <div class="promo-col">
+          <div class="promo-img"><div class="promo-gem"></div></div>
+          <div class="promo-body">
+            <div class="promo-lbl">Featured</div>
+            <div class="promo-ttl" id="promoTitle">Silver Rings — Celestial Edit</div>
+            <a class="promo-cta" href="#">Explore Now →</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="drop-footer">
+        <span class="dfl">View All Collections</span><span class="dfsep">·</span>
+        <span class="dfl">Size Guide</span><span class="dfsep">·</span>
+        <span class="dfl">Care Guide</span><span class="dfsep">·</span>
+        <span class="dfl">Gift Finder</span><span class="dfsep">·</span>
+        <span class="dfl">Jewellery Quiz</span>
+        <span class="dfr">2,800+ designs in stock</span>
+      </div>
+    </div>
+  </li>
+
+  <!-- OTHER NAV ITEMS (no 3-level for now, kept simple) -->
+  <li class="ni" data-menu="silver"><div class="nl">Silver <span class="chv"></span></div>
+    <div class="dropdown" id="dd-silver" style="min-height:auto;">
+      <div class="drop-body" style="min-height:220px;">
+        <div class="cat-rail" style="padding:.5rem 0;">
+          <div class="cat-item active">925 Sterling Silver</div>
+          <div class="cat-item">Oxidised Silver</div>
+          <div class="cat-item">Silver + Gold Polish</div>
+          <div class="cat-item">Silver Enamel</div>
+          <div class="cat-item">Silver Kundan</div>
+          <div class="cat-item">Filigree Work</div>
+          <div class="cat-item">Meenakari</div>
+        </div>
+        <div style="flex:1;padding:1rem 1.2rem;">
+          <div class="sub-head">Regional Craft Traditions</div>
+          <div class="child-grid" style="margin-bottom:.8rem;">
+            <div class="child-item">Rajasthani</div><div class="child-item">Orissa Filigree</div><div class="child-item">Kolhapuri</div>
+            <div class="child-item">Kashmiri</div><div class="child-item">South Temple</div><div class="child-item">Andhra</div>
+          </div>
+          <div class="sub-head">Purity Certs</div>
+          <div class="child-pills"><span class="cpill">BIS 925</span><span class="cpill">HUID Verified</span><span class="cpill">Ethical Sourced</span></div>
+        </div>
+        <div class="promo-col">
+          <div class="promo-img"><div class="promo-gem"></div></div>
+          <div class="promo-body"><div class="promo-lbl">Purity Promise</div><div class="promo-ttl">100% Authentic Silver</div><a class="promo-cta" href="#">Read More →</a></div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="ni" data-menu="gems"><div class="nl">Gemstones <span class="chv"></span></div>
+    <div class="dropdown" id="dd-gems" style="min-height:auto;">
+      <div class="drop-body" style="min-height:220px;">
+        <div class="cat-rail" style="padding:.5rem 0;">
+          <div class="cat-item active">Precious Stones</div>
+          <div class="cat-item">Semi-Precious</div>
+          <div class="cat-item">By Colour</div>
+          <div class="cat-item">By Zodiac</div>
+          <div class="cat-item">Birthstones</div>
+          <div class="cat-item">Healing Crystals</div>
+          <div class="cat-item">Navratna</div>
+        </div>
+        <div style="flex:1;padding:1rem 1.2rem;">
+          <div class="sub-head">Precious</div>
+          <div class="child-grid" style="margin-bottom:.8rem;">
+            <div class="child-item">Diamond</div><div class="child-item">Ruby</div><div class="child-item">Emerald</div>
+            <div class="child-item">Blue Sapphire</div><div class="child-item">Yellow Sapphire</div><div class="child-item">Pearl</div>
+          </div>
+          <div class="sub-head">Semi-Precious</div>
+          <div class="child-pills"><span class="cpill">Moonstone</span><span class="cpill">Amethyst</span><span class="cpill">Turquoise</span><span class="cpill">Garnet</span><span class="cpill">Onyx</span><span class="cpill">Labradorite</span><span class="cpill">Citrine</span><span class="cpill">Rose Quartz</span></div>
+        </div>
+        <div class="promo-col">
+          <div class="promo-img"><div class="promo-gem"></div></div>
+          <div class="promo-body"><div class="promo-lbl">Gemstone Guide</div><div class="promo-ttl">Find Your Birthstone</div><a class="promo-cta" href="#">Discover →</a></div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="ni" data-menu="occasions"><div class="nl">Occasions <span class="chv"></span></div>
+    <div class="dropdown" id="dd-occasions" style="min-height:auto;">
+      <div class="drop-body" style="min-height:200px;">
+        <div class="cat-rail" style="padding:.5rem 0;">
+          <div class="cat-item active">Celebrations</div>
+          <div class="cat-item">Festive</div>
+          <div class="cat-item">Everyday</div>
+          <div class="cat-item">By Recipient</div>
+        </div>
+        <div style="flex:1;padding:1rem 1.2rem;">
+          <div class="sub-head">Celebrations</div>
+          <div class="child-grid" style="margin-bottom:.8rem;">
+            <div class="child-item">Wedding</div><div class="child-item">Engagement</div><div class="child-item">Anniversary</div>
+            <div class="child-item">Baby Shower</div><div class="child-item">Graduation</div><div class="child-item">Retirement</div>
+          </div>
+          <div class="sub-head">Festive</div>
+          <div class="child-pills"><span class="cpill">Diwali</span><span class="cpill">Karwa Chauth</span><span class="cpill">Navratri</span><span class="cpill">Eid</span><span class="cpill">Raksha Bandhan</span><span class="cpill">Christmas</span></div>
+        </div>
+        <div class="promo-col">
+          <div class="promo-img"><div class="promo-gem"></div></div>
+          <div class="promo-body"><div class="promo-lbl">Style Guide</div><div class="promo-ttl">Dress for Every Occasion</div><a class="promo-cta" href="#">Read →</a></div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="ni" data-menu="fine"><div class="nl">Fine Jewellery <span class="nb ex">Exclusive</span> <span class="chv"></span></div>
+    <div class="dropdown" id="dd-fine" style="min-height:auto;">
+      <div class="drop-body" style="min-height:180px;">
+        <div class="cat-rail" style="padding:.5rem 0;">
+          <div class="cat-item active">Gold &amp; Diamond</div>
+          <div class="cat-item">Platinum</div>
+          <div class="cat-item">Rose Gold</div>
+          <div class="cat-item">Solitaires</div>
+          <div class="cat-item">Tennis Bracelets</div>
+          <div class="cat-item">Bespoke</div>
+        </div>
+        <div style="flex:1;padding:1rem 1.2rem;">
+          <div class="sub-head">Bespoke Services</div>
+          <div class="child-pills" style="margin-bottom:.8rem;"><span class="cpill">Custom Design</span><span class="cpill">Engraving</span><span class="cpill">Resize &amp; Repair</span><span class="cpill">GIA / IGI Cert.</span><span class="cpill">Antique Restore</span><span class="cpill">Book Consult</span></div>
+          <div class="sub-head">Diamond Education</div>
+          <div class="child-pills"><span class="cpill">Cut</span><span class="cpill">Colour</span><span class="cpill">Clarity</span><span class="cpill">Carat</span></div>
+        </div>
+        <div class="promo-col">
+          <div class="promo-img"><div class="promo-gem"></div></div>
+          <div class="promo-body"><div class="promo-lbl">Bespoke Atelier</div><div class="promo-ttl">Design Your Dream Piece</div><a class="promo-cta" href="#">Book Consult →</a></div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="ni" data-menu="gifts"><div class="nl">Gifts <span class="chv"></span></div>
+    <div class="dropdown" id="dd-gifts" style="min-height:auto;">
+      <div class="drop-body" style="min-height:180px;">
+        <div class="cat-rail" style="padding:.5rem 0;">
+          <div class="cat-item active">By Budget</div>
+          <div class="cat-item">Gift Services</div>
+          <div class="cat-item">Corporate</div>
+          <div class="cat-item">Gift Cards</div>
+        </div>
+        <div style="flex:1;padding:1rem 1.2rem;">
+          <div class="sub-head">By Budget</div>
+          <div class="child-pills" style="margin-bottom:.8rem;"><span class="cpill">Under ₹999</span><span class="cpill">₹1k–₹2.9k</span><span class="cpill">₹3k–₹9.9k</span><span class="cpill">₹10k+</span></div>
+          <div class="sub-head">Gift Services</div>
+          <div class="child-pills"><span class="cpill">Free Gift Wrap</span><span class="cpill">Personalise</span><span class="cpill">Gift Finder Quiz</span><span class="cpill">Scheduled Delivery</span><span class="cpill">Handwritten Note</span></div>
+        </div>
+        <div class="promo-col">
+          <div class="promo-img"><div class="promo-gem"></div></div>
+          <div class="promo-body"><div class="promo-lbl">The Gift Edit</div><div class="promo-ttl">Gifting Made Effortless</div><a class="promo-cta" href="#">Find the Gift →</a></div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="ni" data-menu="newarr"><div class="nl">New Arrivals <span class="nb new">New</span></div></li>
+  <li class="ni" data-menu="sale"><div class="nl">Sale <span class="nb hot">Hot</span></div></li>
+
+</ul>
+</div>
+
+<div class="grule"></div>
+
+<script>
+const nis = document.querySelectorAll('.ni[data-menu]');
+let curNi = null;
+const navRoot = document.getElementById('navRoot');
+
+nis.forEach(ni => {
+  ni.addEventListener('mouseenter', () => {
+    if(curNi && curNi !== ni) curNi.classList.remove('open');
+    ni.classList.add('open');
+    curNi = ni;
+  });
+});
+navRoot.addEventListener('mouseleave', () => {
+  if(curNi){ curNi.classList.remove('open'); curNi = null; }
+});
+
+const promoTitles = {
+  rings:'Silver Rings — Celestial Edit',necklaces:'Necklaces — New Collection',
+  earrings:'Earrings — Trending Now',bangles:'Bangles &amp; Bracelets',
+  anklets:'Anklets — Summer Edit',maang:'Head Jewellery — Bridal',
+  nose:'Nose Jewellery',sets:'Curated Sets — Gift Ready',
+  chains:'Chains &amp; Lockets',body:'Body Jewellery'
+};
+
+document.querySelectorAll('.cat-item[data-cat]').forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    const menu = item.getAttribute('data-menu');
+    const cat = item.getAttribute('data-cat');
+    document.querySelectorAll(`#dd-${menu} .cat-item`).forEach(c => c.classList.remove('active'));
+    item.classList.add('active');
+    document.querySelectorAll(`#dd-${menu} .sub-panel`).forEach(p => p.classList.remove('active'));
+    const sp = document.querySelector(`[data-subpanel="${menu}-${cat}"]`);
+    if(sp) sp.classList.add('active');
+    const firstSub = sp ? sp.querySelector('.sub-item') : null;
+    document.querySelectorAll(`#dd-${menu} .child-panel`).forEach(p => p.classList.remove('active'));
+    if(firstSub){
+      firstSub.classList.add('active');
+      const childKey = firstSub.getAttribute('data-child');
+      const cp = document.querySelector(`[data-childpanel="${childKey}"]`);
+      if(cp) cp.classList.add('active');
+    }
+    const pt = document.getElementById('promoTitle');
+    if(pt && promoTitles[cat]) pt.innerHTML = promoTitles[cat];
+  });
+});
+
+document.querySelectorAll('.sub-item[data-child]').forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    const childKey = item.getAttribute('data-child');
+    const menuDd = item.closest('.dropdown');
+    if(!menuDd) return;
+    menuDd.querySelectorAll('.sub-item').forEach(s => s.classList.remove('active'));
+    item.classList.add('active');
+    menuDd.querySelectorAll('.child-panel').forEach(p => p.classList.remove('active'));
+    const cp = document.querySelector(`[data-childpanel="${childKey}"]`);
+    if(cp) cp.classList.add('active');
+  });
+});
+</script>
