@@ -22,6 +22,7 @@
     --red: #B83232;
     --green: #2A6E45;
     --blue: #1A5A8A;
+    --bg-white: #FFFFFF;
   }
 
   body {
@@ -210,6 +211,7 @@
     justify-content: space-between;
     padding: .75rem 2rem;
     border-bottom: .5px solid var(--bd);
+    background: var(--bg-white);
   }
 
   .logo {
@@ -711,6 +713,7 @@
 
   /* NAVBAR */
   .nav-wrap {
+    background: var(--bg-white);
     position: relative;
   }
 
@@ -2494,7 +2497,7 @@
         <span class="line3">Human</span>
         <span class="line4">Emotion</span>
       </h1>
-      <p class="hero-body">We do not craft objects; we capture the ephemeral. LUMIÈRE is a sanctuary where sterling becomes prose and gemstones become destiny. Every piece is a chapter in your eternal narrative.</p>
+      <p class="hero-body">We do not craft objects; we capture the ephemeral. RAUMA is a sanctuary where sterling becomes prose and gemstones become destiny. Every piece is a chapter in your eternal narrative.</p>
       <div class="hero-cta-row">
         <a class="btn-primary" href="#">Begin Your Chapter</a>
         <a class="btn-ghost" href="#">View Collections</a>
@@ -2579,7 +2582,7 @@
           </form>
           <div class="form-trust"><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Private &amp; Secure</div><div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Reply within 2 hrs</div><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.4a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>No spam, ever</div></div>
         </div>
-        <div class="form-success" id="formSuccess"><div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="success-ttl">Inquiry Received</div><div class="success-body">Thank you for reaching out. A Lumière specialist will contact you within 2 hours to begin crafting your experience.</div><a class="btn-ghost" href="#" style="margin-top:.5rem;">Explore Collections →</a></div>
+        <div class="form-success" id="formSuccess"><div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="success-ttl">Inquiry Received</div><div class="success-body">Thank you for reaching out. A Rauma specialist will contact you within 2 hours to begin crafting your experience.</div><a class="btn-ghost" href="#" style="margin-top:.5rem;">Explore Collections →</a></div>
       </div>
     </div>
   </div>
@@ -2725,3 +2728,499 @@
     if (s) s.classList.add('show');
   }
 </script>
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#B8965A;--gold-lt:#D4B483;--gold-dk:#8A6E3E;
+  --cream:#F0E6D0;--c2:rgba(240,230,208,0.65);--c3:rgba(240,230,208,0.38);--c4:rgba(240,230,208,0.18);
+  --bg:#0D0A06;--bg2:#111009;--bg3:#181410;--bg4:#1E1A13;
+  --bd:rgba(184,150,90,0.14);--bd2:rgba(184,150,90,0.28);
+}
+body{font-family:'Jost',sans-serif;background:var(--bg);}
+
+/* ── TOP RULE ── */
+.top-rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);opacity:.4;}
+
+/* ── TRUST BAR ── */
+.trust-bar{background:var(--bg2);border-bottom:.5px solid var(--bd);padding:.75rem 3.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.tb-item{display:flex;align-items:center;gap:.45rem;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--c3);}
+.tb-item svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:1.5;flex-shrink:0;}
+.tb-sep{width:.5px;height:16px;background:var(--bd);}
+
+/* ── NEWSLETTER ── */
+.nl-band{background:var(--bg3);border-bottom:.5px solid var(--bd);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.nl-l{display:flex;flex-direction:column;gap:.3rem;}
+.nl-eye{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.nl-ttl{font-family:'Playfair Display',serif;font-size:21px;font-weight:400;font-style:italic;color:var(--cream);}
+.nl-sub{font-size:11px;font-weight:300;color:var(--c3);letter-spacing:.04em;}
+.nl-form{display:flex;gap:0;flex:1;max-width:420px;}
+.nl-input{flex:1;background:var(--bg);border:.5px solid var(--bd2);border-right:none;color:var(--cream);font-family:'Jost',sans-serif;font-size:12px;font-weight:300;padding:.65rem 1rem;outline:none;transition:border-color .2s;}
+.nl-input::placeholder{color:var(--c4);}
+.nl-input:focus{border-color:rgba(184,150,90,.5);}
+.nl-btn{background:var(--gold);color:var(--bg);font-family:'Jost',sans-serif;font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;border:none;padding:.65rem 1.3rem;cursor:pointer;transition:background .22s;white-space:nowrap;}
+.nl-btn:hover{background:var(--gold-lt);}
+.nl-perks{display:flex;gap:1.3rem;}
+.nl-perk{display:flex;align-items:center;gap:.35rem;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--c3);}
+.nl-perk svg{width:11px;height:11px;stroke:var(--gold);fill:none;stroke-width:1.6;flex-shrink:0;}
+
+/* ── LOYALTY STRIP ── */
+.loyalty-strip{background:linear-gradient(90deg,rgba(184,150,90,0.06) 0%,rgba(184,150,90,0.02) 100%);border-bottom:.5px solid var(--bd);padding:.9rem 3.5rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+.ls-left{display:flex;align-items:center;gap:.7rem;}
+.ls-icon{width:32px;height:32px;border:.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ls-icon svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.4;}
+.ls-ttl{font-family:'Playfair Display',serif;font-size:14px;font-weight:400;color:var(--cream);}
+.ls-sub{font-size:10px;color:var(--c3);letter-spacing:.05em;}
+.ls-tiers{display:flex;gap:.5rem;}
+.ls-tier{border:.5px solid var(--bd);padding:3px 10px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--c3);}
+.ls-tier.active{border-color:var(--gold);color:var(--gold);background:rgba(184,150,90,.08);}
+.ls-cta{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:.5px solid var(--gold);padding-bottom:1px;}
+
+/* ── MAIN GRID ── */
+.footer-main{padding:3rem 3.5rem 2.5rem;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr 1fr;gap:2.5rem;}
+
+/* BRAND COL */
+.brand-col{display:flex;flex-direction:column;gap:1.2rem;}
+.f-logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;letter-spacing:.22em;color:var(--cream);text-decoration:none;display:flex;align-items:center;gap:.6rem;}
+.f-gem{width:18px;height:18px;position:relative;flex-shrink:0;}
+.f-gem::before{content:'';position:absolute;width:12px;height:12px;background:var(--gold);transform:rotate(45deg);top:3px;left:3px;}
+.f-gem::after{content:'';position:absolute;width:5px;height:5px;background:var(--bg);transform:rotate(45deg);top:6.5px;left:6.5px;}
+.f-logo-sub{font-size:7px;letter-spacing:.22em;color:rgba(184,150,90,.5);text-transform:uppercase;font-family:'Jost',sans-serif;margin-top:1px;}
+.brand-desc{font-family:'Cormorant Garamond',serif;font-size:13.5px;font-weight:300;color:var(--c3);line-height:1.8;font-style:italic;}
+.awards{display:flex;flex-wrap:wrap;gap:.4rem;}
+.award{border:.5px solid var(--bd2);padding:3px 8px;font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:rgba(184,150,90,.6);display:flex;align-items:center;gap:.3rem;}
+.award svg{width:9px;height:9px;stroke:var(--gold);fill:none;stroke-width:1.6;}
+.socials{display:flex;gap:.4rem;flex-wrap:wrap;}
+.soc{width:30px;height:30px;border:.5px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,background .2s;text-decoration:none;}
+.soc:hover{border-color:var(--gold);background:rgba(184,150,90,.08);}
+.soc svg{width:13px;height:13px;stroke:var(--c3);fill:none;stroke-width:1.4;transition:stroke .2s;}
+.soc:hover svg{stroke:var(--gold);}
+.contacts{display:flex;flex-direction:column;gap:.45rem;}
+.ci{display:flex;align-items:flex-start;gap:.45rem;font-size:11px;color:var(--c3);font-weight:300;line-height:1.5;}
+.ci svg{width:11px;height:11px;stroke:var(--gold);fill:none;stroke-width:1.4;flex-shrink:0;margin-top:1px;}
+.ci a{color:var(--c3);text-decoration:none;transition:color .18s;}
+.ci a:hover{color:var(--gold);}
+
+/* LINK COLUMNS */
+.lc{display:flex;flex-direction:column;gap:.9rem;}
+.ct{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:400;padding-bottom:.55rem;border-bottom:.5px solid var(--bd);}
+.ll{list-style:none;display:flex;flex-direction:column;gap:.38rem;}
+.ll a{font-size:11.5px;font-weight:300;color:var(--c3);text-decoration:none;transition:color .18s,padding-left .18s;display:flex;align-items:center;gap:.35rem;letter-spacing:.02em;}
+.ll a:hover{color:var(--cream);padding-left:3px;}
+.lb{font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;padding:1px 5px;}
+.lb.new{background:rgba(42,110,69,.25);color:#5EAA7A;}
+.lb.hot{background:rgba(184,50,50,.2);color:#D07070;}
+.lb.ex{background:rgba(184,150,90,.15);color:var(--gold);}
+
+/* MINI BLOCKS */
+.mini-block{margin-top:.6rem;background:var(--bg3);border:.5px solid var(--bd);padding:.75rem;}
+.mini-title{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem;font-weight:400;}
+.store-row{display:flex;align-items:center;gap:.4rem;padding:.28rem 0;border-bottom:.5px solid var(--bd);font-size:10.5px;color:var(--c3);}
+.store-row:last-child{border-bottom:none;}
+.store-row svg{width:9px;height:9px;stroke:var(--gold);fill:none;stroke-width:1.5;flex-shrink:0;}
+
+/* BLOG PREVIEWS */
+.blog-posts{display:flex;flex-direction:column;gap:.6rem;margin-top:.3rem;}
+.bp{display:flex;flex-direction:column;gap:.2rem;padding-bottom:.55rem;border-bottom:.5px solid var(--bd);}
+.bp:last-child{border-bottom:none;}
+.bp-cat{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.bp-ttl{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;color:var(--c2);line-height:1.4;cursor:pointer;transition:color .18s;}
+.bp-ttl:hover{color:var(--gold);}
+.bp-date{font-size:9.5px;color:var(--c4);letter-spacing:.06em;}
+
+/* APP BUTTONS */
+.app-btns{display:flex;flex-direction:column;gap:.4rem;margin-top:.3rem;}
+.app-btn{display:flex;align-items:center;gap:.55rem;border:.5px solid var(--bd2);padding:.45rem .65rem;text-decoration:none;transition:border-color .18s,background .18s;cursor:pointer;}
+.app-btn:hover{border-color:var(--gold);background:rgba(184,150,90,.06);}
+.app-btn svg{width:15px;height:15px;stroke:var(--c3);fill:none;stroke-width:1.2;flex-shrink:0;transition:stroke .18s;}
+.app-btn:hover svg{stroke:var(--gold);}
+.app-sub{font-size:8px;color:var(--c4);letter-spacing:.09em;text-transform:uppercase;}
+.app-name{font-size:11px;color:var(--c2);font-weight:400;}
+
+/* QR CODE */
+.qr-wrap{margin-top:.6rem;display:flex;align-items:center;gap:.7rem;border:.5px solid var(--bd);padding:.55rem;}
+.qr-box{width:44px;height:44px;background:var(--bg4);border:.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.qr-box svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:.8;}
+.qr-text{font-size:10px;color:var(--c3);line-height:1.5;}
+
+/* ── CURRENCY / LANGUAGE SWITCHER ── */
+.switcher-row{display:flex;gap:.5rem;margin-top:.3rem;flex-wrap:wrap;}
+.sw-btn{border:.5px solid var(--bd);padding:3px 9px;font-size:10px;letter-spacing:.08em;color:var(--c3);cursor:pointer;transition:all .18s;}
+.sw-btn:hover,.sw-btn.active{border-color:var(--gold);color:var(--gold);}
+
+/* ── PRESS LOGOS ── */
+.press-section{padding:.9rem 3.5rem;border-top:.5px solid var(--bd);border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.press-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(184,150,90,.45);flex-shrink:0;white-space:nowrap;}
+.press-items{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;}
+.press-item{font-family:'Playfair Display',serif;font-size:13px;font-weight:300;font-style:italic;color:rgba(240,230,208,.2);letter-spacing:.06em;transition:color .2s;cursor:pointer;}
+.press-item:hover{color:rgba(240,230,208,.45);}
+
+/* ── PAYMENT & SECURITY ── */
+.pay-row{padding:.9rem 3.5rem;border-bottom:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.pay-left{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;}
+.pay-label{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(184,150,90,.45);}
+.pay-icons{display:flex;gap:.4rem;flex-wrap:wrap;}
+.pi{border:.5px solid var(--bd);padding:3px 8px;font-size:9px;letter-spacing:.05em;color:var(--c4);display:flex;align-items:center;gap:.25rem;}
+.pi svg{width:10px;height:10px;stroke:rgba(184,150,90,.4);fill:none;stroke-width:1.4;}
+.sec-items{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
+.sec-i{display:flex;align-items:center;gap:.35rem;font-size:9.5px;color:var(--c4);letter-spacing:.06em;}
+.sec-i svg{width:11px;height:11px;stroke:var(--gold);fill:none;stroke-width:1.4;}
+.certs{display:flex;gap:.4rem;flex-wrap:wrap;}
+.cert{border:.5px solid var(--bd2);padding:3px 8px;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(184,150,90,.55);}
+
+/* ── BOTTOM BAR ── */
+.footer-bottom{padding:1.1rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.7rem;}
+.copyright{font-size:10.5px;color:var(--c4);font-weight:300;letter-spacing:.04em;}
+.copyright span{color:rgba(184,150,90,.45);}
+.legal{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
+.legal a{font-size:10px;color:var(--c4);text-decoration:none;letter-spacing:.05em;transition:color .18s;}
+.legal a:hover{color:var(--gold);}
+.legal .s{color:var(--bd);}
+.back-top{display:flex;align-items:center;gap:.35rem;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(184,150,90,.5);cursor:pointer;border:.5px solid var(--bd);padding:4px 10px;transition:all .2s;background:transparent;}
+.back-top:hover{border-color:var(--gold);color:var(--gold);}
+.back-top svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:1.6;}
+
+/* ── WATERMARK ── */
+.watermark{text-align:center;padding:.8rem 0 .3rem;font-family:'Playfair Display',serif;font-size:68px;font-weight:700;font-style:italic;color:rgba(184,150,90,.035);letter-spacing:.12em;line-height:1;pointer-events:none;overflow:hidden;}
+</style>
+
+<footer style="background:var(--bg);font-family:'Jost',sans-serif;overflow:hidden;">
+
+  <div class="top-rule"></div>
+
+  <!-- ① TRUST BAR -->
+  <div class="trust-bar">
+    <div class="tb-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>BIS 925 Hallmarked</div>
+    <div class="tb-sep"></div>
+    <div class="tb-item"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>100% Secure Checkout</div>
+    <div class="tb-sep"></div>
+    <div class="tb-item"><svg viewBox="0 0 24 24"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Free Shipping above ₹5,000</div>
+    <div class="tb-sep"></div>
+    <div class="tb-item"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>30-Day Easy Returns</div>
+    <div class="tb-sep"></div>
+    <div class="tb-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Reply within 2 Hours</div>
+    <div class="tb-sep"></div>
+    <div class="tb-item"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.9★ · 2,400+ Reviews</div>
+    <div class="tb-sep"></div>
+    <div class="tb-item"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>Lifetime Polishing Service</div>
+    <div class="tb-sep"></div>
+    <div class="tb-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>40+ Stores Across India</div>
+  </div>
+
+  <!-- ② NEWSLETTER -->
+  <div class="nl-band">
+    <div class="nl-l">
+      <div class="nl-eye">Join the Inner Circle</div>
+      <div class="nl-ttl">Stories, New Arrivals & Exclusive Offers</div>
+      <div class="nl-sub">Curated for those who appreciate the exceptional. No clutter, ever.</div>
+    </div>
+    <form class="nl-form" onsubmit="return false;">
+      <input class="nl-input" type="email" placeholder="Your email address"/>
+      <button class="nl-btn">Subscribe</button>
+    </form>
+    <div class="nl-perks">
+      <div class="nl-perk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Early access</div>
+      <div class="nl-perk"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>No spam</div>
+      <div class="nl-perk"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Member offers</div>
+      <div class="nl-perk"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Weekly digest</div>
+    </div>
+  </div>
+
+  <!-- ③ LOYALTY STRIP -->
+  <div class="loyalty-strip">
+    <div class="ls-left">
+      <div class="ls-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div>
+        <div class="ls-ttl">Rauma Loyalty — Earn on Every Purchase</div>
+        <div class="ls-sub">Collect points, unlock tiers, redeem on future orders. Free to join.</div>
+      </div>
+    </div>
+    <div class="ls-tiers">
+      <div class="ls-tier">Silver</div>
+      <div class="ls-tier active">Gold ✦</div>
+      <div class="ls-tier">Platinum</div>
+      <div class="ls-tier">Diamond</div>
+    </div>
+    <a class="ls-cta" href="#">Join Free →</a>
+  </div>
+
+  <!-- ④ MAIN GRID -->
+  <div class="footer-main">
+
+    <!-- BRAND -->
+    <div class="brand-col">
+      <a class="f-logo" href="#"><span class="f-gem"></span><div>RAUMA<div class="f-logo-sub">Fine Silver &amp; Jewellery · Est. 1982</div></div></a>
+      <p class="brand-desc">"We do not craft objects; we capture the ephemeral. Every piece is a chapter in your eternal narrative."</p>
+      <div class="awards">
+        <div class="award"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Best Jeweller 2024</div>
+        <div class="award"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>India Craft Award</div>
+        <div class="award"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>BIS 925 Certified</div>
+        <div class="award"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>GIA Partner</div>
+      </div>
+      <div class="socials">
+        <a class="soc" href="#" title="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
+        <a class="soc" href="#" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a class="soc" href="#" title="Pinterest"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29l1.23-4.65c-.24-.45-.38-.97-.38-1.52 0-1.74 1.01-3.04 2.26-3.04.94 0 1.4.71 1.4 1.56 0 .95-.61 2.38-.92 3.71-.26 1.11.55 2.01 1.63 2.01 1.95 0 3.26-2.49 3.26-5.43 0-2.24-1.51-3.81-3.67-3.81-2.5 0-3.97 1.87-3.97 3.81 0 .74.28 1.56.64 2 .07.08.08.16.06.24l-.24.96c-.04.15-.13.18-.3.11-1.11-.51-1.8-2.13-1.8-3.43 0-2.78 2.02-5.34 5.83-5.34 3.06 0 5.44 2.18 5.44 5.09 0 3.04-1.91 5.47-4.56 5.47-.89 0-1.73-.46-2.02-1l-.55 2.06c-.2.75-.73 1.71-1.1 2.29.83.26 1.7.4 2.6.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg></a>
+        <a class="soc" href="#" title="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke-width=".5"/></svg></a>
+        <a class="soc" href="#" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        <a class="soc" href="#" title="Twitter/X"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+        <a class="soc" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="soc" href="#" title="Threads"><svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4"/></svg></a>
+      </div>
+      <div class="contacts">
+        <div class="ci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.4a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+918001234567">+91 800 123 4567</a></div>
+        <div class="ci"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:hello@lumiere.in">hello@lumiere.in</a></div>
+        <div class="ci"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>42 Jewellery Quarter, Jaipur — 302001</div>
+        <div class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mon–Sat 10am–7pm IST</div>
+      </div>
+      <!-- Language / Currency -->
+      <div>
+        <div style="font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:rgba(184,150,90,.45);margin-bottom:.35rem;">Language & Currency</div>
+        <div class="switcher-row">
+          <div class="sw-btn active">EN</div><div class="sw-btn">हि</div><div class="sw-btn">தமிழ்</div><div class="sw-btn">বাং</div>
+        </div>
+        <div class="switcher-row" style="margin-top:.35rem;">
+          <div class="sw-btn active">₹ INR</div><div class="sw-btn">$ USD</div><div class="sw-btn">£ GBP</div><div class="sw-btn">AED</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHOP -->
+    <div class="lc">
+      <div class="ct">Shop</div>
+      <ul class="ll">
+        <li><a href="#">New Arrivals <span class="lb new">New</span></a></li>
+        <li><a href="#">Silver Rings</a></li>
+        <li><a href="#">Necklaces &amp; Pendants</a></li>
+        <li><a href="#">Earrings</a></li>
+        <li><a href="#">Bangles &amp; Bracelets</a></li>
+        <li><a href="#">Anklets &amp; Toe Rings</a></li>
+        <li><a href="#">Maang Tikka &amp; Passa</a></li>
+        <li><a href="#">Nose Jewellery</a></li>
+        <li><a href="#">Sets &amp; Suites</a></li>
+        <li><a href="#">Chains &amp; Lockets</a></li>
+        <li><a href="#">Body Jewellery</a></li>
+        <li><a href="#">Men's Jewellery</a></li>
+        <li><a href="#">Kids' Jewellery</a></li>
+        <li><a href="#">Fine Jewellery <span class="lb ex">Excl</span></a></li>
+        <li><a href="#">Gemstones</a></li>
+        <li><a href="#">Sale <span class="lb hot">Hot</span></a></li>
+        <li><a href="#">Gift Cards</a></li>
+      </ul>
+    </div>
+
+    <!-- COLLECTIONS + SERVICES -->
+    <div class="lc">
+      <div class="ct">Collections</div>
+      <ul class="ll">
+        <li><a href="#">Celestial <span class="lb new">New</span></a></li>
+        <li><a href="#">Heritage</a></li>
+        <li><a href="#">Botanica</a></li>
+        <li><a href="#">Minimalist</a></li>
+        <li><a href="#">Meenakari</a></li>
+        <li><a href="#">Temple</a></li>
+        <li><a href="#">Geometric</a></li>
+        <li><a href="#">Filigree</a></li>
+        <li><a href="#">Tribal &amp; Ethnic</a></li>
+        <li><a href="#">Spiritual &amp; Sacred</a></li>
+      </ul>
+      <div style="margin-top:.8rem;">
+        <div class="ct">Services</div>
+        <ul class="ll">
+          <li><a href="#">Custom Design</a></li>
+          <li><a href="#">Engraving Studio</a></li>
+          <li><a href="#">Resize &amp; Repair</a></li>
+          <li><a href="#">Antique Restoration</a></li>
+          <li><a href="#">Virtual Try-On (AR)</a></li>
+          <li><a href="#">Book Appointment</a></li>
+          <li><a href="#">Corporate Gifting</a></li>
+          <li><a href="#">Valuation Certificate</a></li>
+          <li><a href="#">Jewellery Insurance</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HELP + STORES -->
+    <div class="lc">
+      <div class="ct">Help &amp; Support</div>
+      <ul class="ll">
+        <li><a href="#">Track My Order</a></li>
+        <li><a href="#">Returns &amp; Exchange</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Cancellation Policy</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Ring Sizing Chart</a></li>
+        <li><a href="#">Jewellery Care Guide</a></li>
+        <li><a href="#">Silver Purity Guide</a></li>
+        <li><a href="#">Hallmark Verification</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Live Chat</a></li>
+        <li><a href="#">Raise a Complaint</a></li>
+        <li><a href="#">Bulk / Wholesale</a></li>
+        <li><a href="#">Franchise Enquiry</a></li>
+      </ul>
+      <div class="mini-block">
+        <div class="mini-title">Flagship Stores</div>
+        <div class="store-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Jaipur — Jewellery Quarter</div>
+        <div class="store-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Mumbai — Zaveri Bazaar</div>
+        <div class="store-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Delhi — Khan Market</div>
+        <div class="store-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Bengaluru — UB City</div>
+        <div class="store-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Chennai — T.Nagar</div>
+        <div class="store-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Hyderabad — Banjara Hills</div>
+      </div>
+    </div>
+
+    <!-- COMPANY + BLOG -->
+    <div class="lc">
+      <div class="ct">Company</div>
+      <ul class="ll">
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Craftsmanship</a></li>
+        <li><a href="#">Our Artisans</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Ethical Sourcing</a></li>
+        <li><a href="#">Recycled Silver</a></li>
+        <li><a href="#">Impact Report 2024</a></li>
+        <li><a href="#">Press &amp; Media</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Investor Relations</a></li>
+        <li><a href="#">Partnerships</a></li>
+        <li><a href="#">Affiliate Program</a></li>
+        <li><a href="#">Refer &amp; Earn</a></li>
+      </ul>
+      <div style="margin-top:.8rem;">
+        <div class="ct">Latest from Blog</div>
+        <div class="blog-posts">
+          <div class="bp">
+            <div class="bp-cat">Gemstones</div>
+            <div class="bp-ttl">The Healing Properties of Moonstone</div>
+            <div class="bp-date">Mar 14, 2025</div>
+          </div>
+          <div class="bp">
+            <div class="bp-cat">Bridal</div>
+            <div class="bp-ttl">How to Choose Your Wedding Set</div>
+            <div class="bp-date">Mar 8, 2025</div>
+          </div>
+          <div class="bp">
+            <div class="bp-cat">Craft</div>
+            <div class="bp-ttl">Inside Our Jaipur Filigree Atelier</div>
+            <div class="bp-date">Feb 28, 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APP + EDUCATION -->
+    <div class="lc">
+      <div class="ct">Get the App</div>
+      <div class="app-btns">
+        <a class="app-btn" href="#">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div><div class="app-sub">Download on</div><div class="app-name">App Store</div></div>
+        </a>
+        <a class="app-btn" href="#">
+          <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/></svg>
+          <div><div class="app-sub">Get it on</div><div class="app-name">Google Play</div></div>
+        </a>
+      </div>
+      <!-- QR CODE -->
+      <div class="qr-wrap">
+        <div class="qr-box">
+          <svg viewBox="0 0 32 32"><rect x="2" y="2" width="12" height="12"/><rect x="3" y="3" width="10" height="10" fill="rgba(13,10,6,1)" stroke="none"/><rect x="4" y="4" width="8" height="8" fill="rgba(184,150,90,0.6)" stroke="none"/><rect x="18" y="2" width="12" height="12"/><rect x="19" y="3" width="10" height="10" fill="rgba(13,10,6,1)" stroke="none"/><rect x="20" y="4" width="8" height="8" fill="rgba(184,150,90,0.6)" stroke="none"/><rect x="2" y="18" width="12" height="12"/><rect x="3" y="19" width="10" height="10" fill="rgba(13,10,6,1)" stroke="none"/><rect x="4" y="20" width="8" height="8" fill="rgba(184,150,90,0.6)" stroke="none"/><rect x="18" y="18" width="3" height="3" fill="rgba(184,150,90,0.6)" stroke="none"/><rect x="23" y="18" width="3" height="3" fill="rgba(184,150,90,0.6)" stroke="none"/><rect x="18" y="23" width="3" height="3" fill="rgba(184,150,90,0.6)" stroke="none"/><rect x="23" y="23" width="7" height="7" fill="rgba(184,150,90,0.6)" stroke="none"/></svg>
+        </div>
+        <div class="qr-text" style="font-size:10px;color:var(--c3);">Scan to download<br/>the Rauma app</div>
+      </div>
+
+      <div style="margin-top:.9rem;">
+        <div class="ct">Learn & Discover</div>
+        <ul class="ll">
+          <li><a href="#">Jewellery Glossary</a></li>
+          <li><a href="#">Diamond 4Cs Guide</a></li>
+          <li><a href="#">Birthstone Calendar</a></li>
+          <li><a href="#">Zodiac &amp; Gemstones</a></li>
+          <li><a href="#">Healing Crystals Guide</a></li>
+          <li><a href="#">BIS Hallmark Guide</a></li>
+          <li><a href="#">Lookbook 2025</a></li>
+          <li><a href="#">Video Tutorials</a></li>
+          <li><a href="#">Style Inspiration</a></li>
+          <li><a href="#">Customer Stories</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ⑤ PRESS MENTIONS -->
+  <div class="press-section">
+    <div class="press-label">As seen in</div>
+    <div class="press-items">
+      <div class="press-item">Vogue India</div>
+      <div class="press-item">Harper's Bazaar</div>
+      <div class="press-item">Elle India</div>
+      <div class="press-item">Femina</div>
+      <div class="press-item">Condé Nast Traveller</div>
+      <div class="press-item">Business Standard</div>
+      <div class="press-item">Forbes India</div>
+      <div class="press-item">Times of India</div>
+    </div>
+  </div>
+
+  <!-- ⑥ PAYMENT & SECURITY -->
+  <div class="pay-row">
+    <div class="pay-left">
+      <span class="pay-label">Accepted Payments</span>
+      <div class="pay-icons">
+        <div class="pi"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Visa</div>
+        <div class="pi">Mastercard</div>
+        <div class="pi">RuPay</div>
+        <div class="pi">UPI</div>
+        <div class="pi">Net Banking</div>
+        <div class="pi">EMI</div>
+        <div class="pi">COD</div>
+        <div class="pi">Amex</div>
+        <div class="pi">BNPL</div>
+        <div class="pi">Paytm</div>
+        <div class="pi">GPay</div>
+        <div class="pi">PhonePe</div>
+      </div>
+    </div>
+    <div class="sec-items">
+      <div class="sec-i"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>SSL Secured</div>
+      <div class="sec-i"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>100% Authentic</div>
+      <div class="sec-i"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>4.9★ Rated</div>
+      <div class="sec-i"><svg viewBox="0 0 24 24"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Ships in 2–4 Days</div>
+    </div>
+    <div class="certs">
+      <div class="cert">BIS 925</div>
+      <div class="cert">HUID</div>
+      <div class="cert">ISO 9001</div>
+      <div class="cert">GIA Partner</div>
+      <div class="cert">Fair Trade</div>
+    </div>
+  </div>
+
+  <!-- ⑦ BOTTOM BAR -->
+  <div class="footer-bottom">
+    <div class="copyright">© 2025 <span>Rauma Fine Jewellery Pvt. Ltd.</span> · CIN: U74999RJ1982PTC123456 · All rights reserved. Crafted in Jaipur, India.</div>
+    <div class="legal">
+      <a href="#">Privacy Policy</a><span class="s">·</span>
+      <a href="#">Terms of Service</a><span class="s">·</span>
+      <a href="#">Cookie Policy</a><span class="s">·</span>
+      <a href="#">Refund Policy</a><span class="s">·</span>
+      <a href="#">Disclaimer</a><span class="s">·</span>
+      <a href="#">Sitemap</a><span class="s">·</span>
+      <a href="#">Accessibility</a><span class="s">·</span>
+      <a href="#">Grievance Officer</a>
+    </div>
+    <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+      Back to Top
+    </button>
+  </div>
+
+  <!-- ⑧ WATERMARK -->
+  <div class="watermark">RAUMA</div>
+
+</footer>
